@@ -8,9 +8,7 @@ function Promo() {
       <div className="promo__content">
         <img className="promo__image" src={earth} alt="изображение планеты Земля" />
         <h1 className="promo__header">
-          {
-          'Учебный проект студента факультета \u000AВеб-разработки.'
-          }
+          Учебный проект студента факультета Веб&#8209;разработки.
         </h1>
         <p className="promo__info">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
       </div>

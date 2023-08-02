@@ -11,10 +11,10 @@ function Footer() {
         <p className="footer__year">{`© ${year}`}</p>
         <ul className="footer__links-list">
           <li>
-            <a className="footer__link" href="https://practicum.yandex.ru/">Яндекс.Практикум</a>
+            <a className="footer__link" href="https://practicum.yandex.ru/" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
           </li>
           <li>
-            <a className="footer__link" href="https://github.com/pave1An">Github</a>
+            <a className="footer__link" href="https://github.com/pave1An" target="_blank" rel="noreferrer">Github</a>
           </li>
         </ul>
       </div>
