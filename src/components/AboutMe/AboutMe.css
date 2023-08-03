@@ -18,7 +18,7 @@
   padding: 66px 0 0;
   display: grid;
   align-content: end;
-  grid-template-areas: 
+  grid-template-areas:
   "header image"
   "job    image"
   "text   image"
@@ -80,6 +80,7 @@
   font-weight: 500;
   line-height: normal;
   color: black;
+  width: min-content;
 }
 
 @media screen and (max-width: 880px) {
@@ -92,28 +93,28 @@
 
 @media screen and (max-width: 768px) {
   .about-me {
-    padding: 90px 50px;
+    padding: 90px 50px 40px;
   }
 
   .about-me__avatar {
     max-width: 255px;
     max-height: 307px;
   }
-  
+
   .about-me__name {
     grid-area: header;
     font-size: 40px;
     line-height: 40px;
     letter-spacing: -1.6px;
   }
-  
+
   .about-me__job {
     grid-area: job;
     padding: 16px 0 0;
     font-size: 12px;
     line-height: 18px;
   }
-  
+
   .about-me__text {
     padding: 20px 0 0;
   }
@@ -135,11 +136,13 @@
   .about-me__name {
     padding: 40px 0 0;
   }
+
+
 }
 
 @media screen and (max-width: 480px) {
   .about-me {
-    padding: 70px 14px;
+    padding: 70px 14px 35px;
   }
 
   .about-me__content {

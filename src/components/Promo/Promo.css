@@ -41,6 +41,8 @@
   font-size: 13px;
   font-weight: 400;
   max-width: 310px;
+  line-height: normal;
+  font-feature-settings: 'clig' off, 'liga' off;
 }
 
 .promo__link {
@@ -75,7 +77,7 @@
   }
 
   .promo__header {
-   padding-top: 48px;
+   padding-top: 45px;
    padding-right: 0;
    max-width: none;
   }
@@ -95,12 +97,11 @@
     padding: 75px 30px;
   }
 
-
   .promo__header {
     font-size: 40px;
     line-height: 50px;
   }
-  
+
   .promo__info {
     max-width: 260px;
   }
@@ -115,14 +116,14 @@
       width: 210px;
       height: 206px;
     }
-  
-  
+
+
     .promo__header {
       font-size: 30px;
       line-height: 38px;
       letter-spacing: -1.2px;
     }
-    
+
     .promo__link {
       margin-top: 80px;
     }
