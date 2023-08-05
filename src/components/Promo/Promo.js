@@ -1,5 +1,4 @@
 import './Promo.css';
-import { Link } from 'react-router-dom';
 import earth from '../../images/promo-earth.svg';
 
 function Promo() {
@@ -12,7 +11,7 @@ function Promo() {
         </h1>
         <p className="promo__info">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
       </div>
-      <Link className="promo__link" to="/">Узнать больше</Link>
+      <a className="promo__link" href="#about-project">Узнать больше</a>
     </section>
   );
 }
