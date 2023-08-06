@@ -1,0 +1,25 @@
+.movie {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+  color: #FDFDFD;
+}
+
+.movie__image {
+  width: 100%;
+  object-fit: cover;
+  height: 70%;
+  aspect-ratio: 1,784;
+}
+
+.movie__title {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

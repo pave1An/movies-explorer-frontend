@@ -7,11 +7,12 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   const { pathname } = useLocation();
   const isLocationForHeaderFooter = ['/', '/movies', '/profile', '/saved-movies'].includes(pathname);
-  const [loggedIn] = useState(false);
+  const [loggedIn] = useState(true);
 
   return (
     <div className="page">
@@ -21,8 +22,7 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="/*" element={<p>adsf</p>} />
-        <Route path="/notfound" element={<p>adsf</p>} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       {isLocationForHeaderFooter && <Footer /> }
     </div>
