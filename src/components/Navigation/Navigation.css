@@ -28,7 +28,14 @@
   font-weight: 400;
   color: black;
   line-height: 18px;
+  cursor: pointer;
+  transition: all .1s linear;
 }
+
+.navigation__link:hover {
+  opacity: .7;
+}
+
 
 .navigation__item:first-child {
   display: none;
@@ -43,6 +50,12 @@
   color: white;
   font-size: 12px;
   font-weight: 500;
+  cursor: pointer;
+  transition: all .1s linear;
+}
+
+.navigation__link-signup:hover {
+  opacity: .7;
 }
 
 .navigation__link-signin {
@@ -58,12 +71,18 @@
   font-size: 12px;
   min-height: 32px;
   min-width: 76px;
+  cursor: pointer;
+  transition: all .1s linear;
+}
+
+.navigation__link-signin:hover {
+  opacity: .7;
 }
 
 .navigation__link-profile {
   box-sizing: border-box;
   display: flex;
-  background-image: url('../../images/navigation-signin-icon.svg');
+  background-image: url('../../images/navigation-profile-icon.svg');
   background-repeat: no-repeat;
   background-position: 10px;
   background-size: 12px 14px;
@@ -80,6 +99,18 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 16px;
+  cursor: pointer;
+  transition: all .1s linear;
+}
+
+.navigation__link-profile:hover {
+  opacity: .7;
+}
+
+.navigation__link-profile_theme_dark {
+  border: solid 2px #F5F5F5;
+  color: white;
+  background-image: url('../../images/navigation-profile-icon-white.svg');
 }
 
 @media screen and (max-width: 768px) {

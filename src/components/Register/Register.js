@@ -5,6 +5,7 @@ function Register() {
   const isFormValid = true;
   return (
     <Form
+      name="register"
       title="Добро пожаловать!"
       buttonText="Зарегистрироваться"
       isFormValid={isFormValid}
@@ -15,7 +16,7 @@ function Register() {
       <fieldset className="form__fieldset">
         <Input name="name" type="text" required="required" labelText="Имя" minLength="2" />
         <Input name="email" type="email" required="required" labelText="E-mail" />
-        <Input name="password" type="password" required="required" labelText="Пароль" minLength="3" />
+        <Input name="password" type="password" required="required" labelText="Пароль" minLength="3" errorText="Что-то пошло не так..." />
       </fieldset>
     </Form>
   );

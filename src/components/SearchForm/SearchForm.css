@@ -30,7 +30,8 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  outline: none
+  outline: none;
+  cursor: pointer;
 }
 
 .search-form__submit {
@@ -40,6 +41,12 @@
   width: 50px;
   height: 35px;
   background: center / contain no-repeat url('../../images/search-form-button.svg');
+  cursor: pointer;
+  transition: all .1s ease-in;
+}
+
+.search-form__submit:hover {
+  opacity: .8;
 }
 
 @media screen and (max-width: 768px) {

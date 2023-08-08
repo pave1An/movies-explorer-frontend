@@ -1,12 +1,11 @@
-import { movies } from '../../utils/constants';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-function MoviesCardList() {
+function MoviesCardList({ cards }) {
   return (
     <section className="movies-grid">
       <ul className="movies-grid__list">
-        {movies.map((card) => (
+        {cards.map((card) => (
           <MoviesCard
             key={card.id}
             imageLink={card.image.formats.thumbnail.url}
@@ -15,6 +14,7 @@ function MoviesCardList() {
           />
         ))}
       </ul>
+      <button className="movies-grid__button" type="button">Ещё</button>
     </section>
   );
 }

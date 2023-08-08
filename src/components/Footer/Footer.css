@@ -51,7 +51,15 @@
   line-height: normal;
   text-decoration: none;
   line-height: normal;
+  cursor: pointer;
+  transition: all .1s linear;
 }
+
+.footer__link:hover {
+  opacity: .7;
+}
+
+
 
 @media screen and (max-width: 768px) {
   .footer {

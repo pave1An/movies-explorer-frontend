@@ -21,6 +21,12 @@
   background: center / contain no-repeat url('../../images/logo.svg');
   width: 38px;
   height: 38px;
+  cursor: pointer;
+  transition: all .1s linear;
+}
+
+.header__logo-link:hover {
+  opacity: .7;
 }
 
 .header__burger-button {
@@ -44,6 +50,11 @@
   transition: all .2s linear;
 }
 
+.header__burger-button-border-lines_theme_dark {
+  border-top: solid 3px white;
+  border-bottom: solid 3px white;
+}
+
 .header__burger-button-middle-line {
   width: 44px;
   height: 0 px;
@@ -52,21 +63,33 @@
   transition: all .2s linear;
 }
 
+.header__burger-button-middle-line_theme_dark {
+  border-top: solid 3px white;
+}
+
 @media screen and (max-width: 768px) {
   .header {
     padding: 18px 30px;
   }
 
-  .header__burger-button{
+  .header__burger-button {
     display: block;
     z-index: 1;
     margin-right: 8px;
+    cursor: pointer;
+    transition: all .1s linear;
+  }
+
+  .header__burger-button:hover {
+    opacity: .7;
   }
 
   .header__burger-button_type_close {
     width: 23px;
     margin-right: 0;
   }
+
+
 
   .header__burger-button-border-lines_type_close {
     border-top: none;

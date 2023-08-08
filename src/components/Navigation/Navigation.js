@@ -3,10 +3,10 @@ import {
   Link, NavLink,
 } from 'react-router-dom';
 
-function Navigation({ isOpen, isLoggedIn }) {
+function Navigation({ isOpen, isRootPath }) {
   return (
     <div className="navigation">
-      {!isLoggedIn
+      {isRootPath
         ? (
           <nav>
             <ul className="navigation__menu-unauthorized">

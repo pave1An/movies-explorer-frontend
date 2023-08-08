@@ -5,6 +5,7 @@ function Login() {
   const isFormValid = true;
   return (
     <Form
+      name="login"
       title="Рады видеть!"
       buttonText="Войти"
       isFormValid={isFormValid}

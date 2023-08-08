@@ -2,16 +2,15 @@ import './Form.css';
 import { Link } from 'react-router-dom';
 
 function Form({
-  title, buttonText, isFormValid, children, question, link, linkText,
+  title, buttonText, isFormValid, children, question, link, linkText, name,
 }) {
   return (
     <div className="form">
       <Link to="/" className="form__logo-link" />
       <h2 className="form__header">{title}</h2>
       <form
-        // onSubmit={onSubmit}
         action="#"
-        name="form"
+        name={name}
         className="form__form"
         noValidate
       >

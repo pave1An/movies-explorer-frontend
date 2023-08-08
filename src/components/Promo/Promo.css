@@ -62,6 +62,12 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  transition: all .1s ease;
+  cursor: pointer;
+}
+
+.promo__link:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 900px) {

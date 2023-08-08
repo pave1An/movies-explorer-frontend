@@ -8,7 +8,7 @@ function NotFound() {
     <section className="not-found">
       <h2 className="not-found__header">404</h2>
       <p className="not-found__text">Страница не найдена</p>
-      <button type="button" className="not-found__back-button" aria-label="Вернуться назад" onClick={goBack}>
+      <button type="button" className="not-found__back-button" onClick={goBack}>
         Назад
       </button>
     </section>

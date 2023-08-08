@@ -81,6 +81,11 @@
   line-height: normal;
   color: black;
   width: min-content;
+  transition: all .1s linear;
+}
+
+.about-me__link:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 880px) {

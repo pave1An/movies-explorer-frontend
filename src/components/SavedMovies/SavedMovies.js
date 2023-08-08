@@ -1,15 +1,14 @@
-import { movies } from '../../utils/constants';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
-import './Movies.css';
+import { savedMovies } from '../../utils/constants';
 
-function Movies() {
+function SavedMovies() {
   return (
     <main className="movies">
       <SearchForm />
-      <MoviesCardList cards={movies} />
+      <MoviesCardList cards={savedMovies} />
     </main>
   );
 }
 
-export default Movies;
+export default SavedMovies;
