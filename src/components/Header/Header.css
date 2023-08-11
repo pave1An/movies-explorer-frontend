@@ -1,0 +1,122 @@
+.header {
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  padding: 18px 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 74px;
+  background-color: white;
+}
+
+.header_theme_dark {
+  background-color: #073042;
+}
+
+.header__logo-link {
+  margin: 0;
+  padding: 0;
+  background: center / contain no-repeat url('../../images/logo.svg');
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  transition: all .1s linear;
+}
+
+.header__logo-link:hover {
+  opacity: .7;
+}
+
+.header__burger-button {
+  height: 23px;
+  width: 30px;
+  display: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.header__burger-button-border-lines {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-top: solid 3px black;
+  border-bottom: solid 3px black;
+  display: flex;
+  align-items: center;
+  transition: all .2s linear;
+}
+
+.header__burger-button-border-lines_theme_dark {
+  border-top: solid 3px white;
+  border-bottom: solid 3px white;
+}
+
+.header__burger-button-middle-line {
+  width: 44px;
+  height: 0 px;
+  border-top: solid 3px black;
+  background-color: transparent;
+  transition: all .2s linear;
+}
+
+.header__burger-button-middle-line_theme_dark {
+  border-top: solid 3px white;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 18px 30px;
+  }
+
+  .header__burger-button {
+    display: block;
+    z-index: 1;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: all .1s linear;
+  }
+
+  .header__burger-button:hover {
+    opacity: .7;
+  }
+
+  .header__burger-button_type_close {
+    width: 23px;
+    margin-right: 0;
+  }
+
+
+
+  .header__burger-button-border-lines_type_close {
+    border-top: none;
+    height: 0px;
+    transform: rotate(45deg);
+  }
+
+  .header__burger-button-middle-line_type_close {
+    height: 3px;
+    transform: rotate(90deg) translate(1.5px, 1.5px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 18px 14px;
+  }
+
+  .header__burger-button {
+    height: 22px;
+    width: 22px;
+    margin-right: 8px;
+  }
+
+  .header__burger-button_type_close {
+    width: 23px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+  }
+}
