@@ -34,6 +34,12 @@
   width: min-content;
   padding: 0;
   margin: 185px 0 0;
+  cursor: pointer;
+  transition: all .1s linear;
+}
+
+.not-found__back-button:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 480px) {

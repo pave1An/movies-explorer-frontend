@@ -1,5 +1,5 @@
 function Input({
-  name, type, labelText, required, minLength = '', errorText = ' ',
+  name, type, labelText, required, minLength = 0, errorText = '',
 }) {
   return (
     <>

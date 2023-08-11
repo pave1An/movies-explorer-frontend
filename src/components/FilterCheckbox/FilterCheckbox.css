@@ -36,6 +36,11 @@
   transition: all .1s ease;
 }
 
+.filter__toggler-slider:hover {
+  transform: scale(1.05);
+  opacity: .8;
+}
+
 .filter__toggler-slider::before {
   background-color:#F5F5F5;
   content:'';

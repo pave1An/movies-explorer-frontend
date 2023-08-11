@@ -5,9 +5,9 @@ function Form({
   title, buttonText, isFormValid, children, question, link, linkText, name,
 }) {
   return (
-    <div className="form">
+    <section className="form">
       <Link to="/" className="form__logo-link" />
-      <h2 className="form__header">{title}</h2>
+      <h1 className="form__header">{title}</h1>
       <form
         action="#"
         name={name}
@@ -28,7 +28,7 @@ function Form({
         {question}
         <Link className="form__link" to={link}>{` ${linkText}`}</Link>
       </span>
-    </div>
+    </section>
   );
 }
 

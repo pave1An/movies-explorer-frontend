@@ -20,8 +20,11 @@
   border-radius: 50px;
   max-width: 932px;
   min-height: 48px;
-  border: solid 1.5px rgba(170, 170, 170, .2)
+  border: solid 1.5px rgba(170, 170, 170, .2);
+  transition: all .2s ease-in;
 }
+
+
 
 .search-form__input {
   border: none;
@@ -32,6 +35,10 @@
   line-height: 18px;
   outline: none;
   cursor: pointer;
+}
+
+.search-form__cover:focus-within {
+  border: solid 1.5px #3456F3;
 }
 
 .search-form__submit {

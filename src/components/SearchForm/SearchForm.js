@@ -19,7 +19,6 @@ function SearchForm() {
             className="search-form__submit"
             type="submit"
             aria-label="Начать поиск"
-            action="#"
           />
         </div>
         <FilterCheckbox />
