@@ -1,19 +1,26 @@
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
-function SearchForm() {
+function SearchForm({
+  handleCheckboxTurn, onChangeRequest, request, onSearch, isShortMovie,
+}) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSearch();
+  }
   return (
     <section className="search-form">
-      <form className="search-form__form" noValidate>
+      <form className="search-form__form" onSubmit={handleSubmit} noValidate>
         <div className="search-form__cover">
           <input
             className="search-form__input"
-            // value=""
+            value={request}
             placeholder="Фильм"
             name="search-input"
             type="text"
             required="required"
             minLength="2"
+            onChange={onChangeRequest}
           />
           <button
             className="search-form__submit"
@@ -21,7 +28,10 @@ function SearchForm() {
             aria-label="Начать поиск"
           />
         </div>
-        <FilterCheckbox />
+        <FilterCheckbox
+          onCheckboxTurn={handleCheckboxTurn}
+          isShortMovie={isShortMovie}
+        />
       </form>
     </section>
   );

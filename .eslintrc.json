@@ -23,6 +23,13 @@
       "linebreak-style": "off",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "no-useless-escape": "off",
+      "no-underscore-dangle": ["error", { "allow": ["_id"], "allowAfterThis": true, "enforceInClassFields": true }],
+      "class-methods-use-this": ["error", { "exceptMethods": ["_handleFirstResponse"] }],
+      "array-callback-return": ["error", { "checkForEach": true }],
+      "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+      "no-console": ["error", { "allow": ["warn", "error", "log"] }],
+      "react/jsx-no-bind": ["error", {"allowFunctions": true, "allowArrowFunctions": true, "allowBind": true}]
     }
 }

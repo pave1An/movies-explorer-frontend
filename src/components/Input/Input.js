@@ -1,5 +1,5 @@
 function Input({
-  name, type, labelText, required, minLength = 0, errorText = '',
+  name, type, labelText, required, minLength, maxLength, onChange, errors, values,
 }) {
   return (
     <>
@@ -11,9 +11,12 @@ function Input({
         type={type}
         required={required}
         minLength={minLength}
+        maxLength={maxLength}
         placeholder={labelText}
+        onChange={onChange}
+        value={values[name] || ''}
       />
-      <span className="form__error">{errorText}</span>
+      <span className="form__error">{errors[name] || ''}</span>
     </>
   );
 }

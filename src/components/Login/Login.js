@@ -16,8 +16,21 @@ function Login() {
         linkText="Регистрация"
       >
         <fieldset className="form__fieldset">
-          <Input name="email" type="email" required="required" labelText="E-mail" minLength="2" />
-          <Input name="password" type="password" required="required" labelText="Пароль" minLength="3" />
+          <Input
+            name="email"
+            type="email"
+            required="required"
+            labelText="E-mail"
+            minLength="2"
+          />
+          <Input
+            name="password"
+            type="password"
+            required="required"
+            labelText="Пароль"
+            minLength="3"
+            maxLength="30"
+          />
         </fieldset>
       </Form>
     </main>

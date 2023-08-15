@@ -1,9 +1,12 @@
 import './Register.css';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 
 function Register() {
-  const isFormValid = true;
+  const {
+    values, errors, isFormValid, handleChange,
+  } = useFormWithValidation();
   return (
     <main className="register-content">
       <Form
@@ -16,9 +19,37 @@ function Register() {
         linkText="Войти"
       >
         <fieldset className="form__fieldset">
-          <Input name="name" type="text" required="required" labelText="Имя" minLength="2" />
-          <Input name="email" type="email" required="required" labelText="E-mail" />
-          <Input name="password" type="password" required="required" labelText="Пароль" minLength="3" errorText="Что-то пошло не так..." />
+          <Input
+            name="name"
+            type="text"
+            required="required"
+            labelText="Имя"
+            minLength="2"
+            maxLength="30"
+            onChange={handleChange}
+            errors={errors}
+            values={values}
+          />
+          <Input
+            name="email"
+            type="email"
+            required="required"
+            labelText="E-mail"
+            onChange={handleChange}
+            errors={errors}
+            values={values}
+          />
+          <Input
+            name="password"
+            type="password"
+            required="required"
+            labelText="Пароль"
+            minLength="3"
+            maxLength="30"
+            onChange={handleChange}
+            errors={errors}
+            values={values}
+          />
         </fieldset>
       </Form>
     </main>
