@@ -3,13 +3,20 @@ import useFormWithValidation from '../../hooks/useFormWithValidation';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 
-function Register() {
+function Register({ onRegister }) {
   const {
     values, errors, isFormValid, handleChange,
   } = useFormWithValidation();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const { name, email, password } = values;
+    onRegister({ name, email, password });
+  }
   return (
     <main className="register-content">
       <Form
+        onSubmit={handleSubmit}
         name="register"
         title="Добро пожаловать!"
         buttonText="Зарегистрироваться"

@@ -1,5 +1,7 @@
 import './App.css';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import {
+  Route, Routes, useLocation, useNavigate,
+} from 'react-router-dom';
 import { useState } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -14,6 +16,7 @@ import moviesApi from '../../utils/MoviesApi';
 import CurrentWindowWidthContext from '../../contexts/CurrentWindowWidth';
 // import { shortMovieDuration } from '../../utils/constants';
 import widtowWidth from '../../hooks/useWindowResize';
+import mainApi from '../../utils/MainApi';
 
 function App() {
   const { pathname } = useLocation();
@@ -25,6 +28,8 @@ function App() {
   const [foundMovies, setFoundMovies] = useState([]);
   const [request, setRequest] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   function handleChangeRequest(e) {
     setRequest(e.target.value);
@@ -43,6 +48,16 @@ function App() {
         || movie.nameEN.toLowerCase().includes(lowerCaseRequest);
       },
     ));
+  }
+
+  function handleRegister({ email, password, name }) {
+    mainApi.registration({ email, password, name })
+      .then(() => {
+        navigate('/signin', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function searchMovies(isShort) {
@@ -71,7 +86,7 @@ function App() {
         {isLocationForHeader && <Header isRootPath={isRootPath} /> }
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/signup" element={<Register />} />
+          <Route path="/signup" element={<Register onRegister={handleRegister} />} />
           <Route path="/signin" element={<Login />} />
           <Route
             path="/movies"

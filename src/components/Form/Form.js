@@ -2,7 +2,7 @@ import './Form.css';
 import { Link } from 'react-router-dom';
 
 function Form({
-  title, buttonText, isFormValid, children, question, link, linkText, name,
+  title, buttonText, isFormValid, children, question, link, linkText, name, onSubmit,
 }) {
   return (
     <section className="form">
@@ -13,6 +13,7 @@ function Form({
         name={name}
         className="form__form"
         noValidate
+        onSubmit={onSubmit}
       >
         {children}
         <button
