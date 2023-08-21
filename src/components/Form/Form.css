@@ -89,6 +89,7 @@
   background-color: #3456F3;
   width: 100%;
   min-height: 45px;
+  cursor: pointer;
 }
 
 .form__button_disablded {

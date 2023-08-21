@@ -1,63 +1,82 @@
-import { useState } from 'react';
 import './Profile.css';
 import '../Main/Main.css';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 
-function Profile() {
+function Profile({ handlePatchUserInfo, onSignOut }) {
   const [isRedact, setIsRedact] = useState(false);
-  const navigate = useNavigate();
+
+  const { name: currentUserName, email: currentUserEmail } = useContext(CurrentUserContext);
+  const {
+    values, errors, isAllFieldsValid, resetForm, handleChange,
+  } = useFormWithValidation();
+
+  const isSubmitDisable = !isAllFieldsValid
+  && (currentUserName === values.name && currentUserEmail === values.email);
+
   function handleRedactClick() {
     setIsRedact(true);
   }
-  function handleSubmit() {
+  function handleSubmit(e) {
+    const { name, email } = values;
+    e.preventDefault();
+    handlePatchUserInfo({ name, email });
     setIsRedact(false);
   }
-  function handleLogout() {
-    navigate('/');
-  }
+
+  useEffect(() => {
+    resetForm({ name: currentUserName, email: currentUserEmail });
+  }, [currentUserName, currentUserEmail, resetForm]);
+
   return (
     <main className="profile-content">
       <section className="profile">
-        <h1 className="profile__title">Привет, Виталий!</h1>
+        <h1 className="profile__title">{`Привет, ${currentUserName}`}</h1>
         <form className="profile__form" action="#" name="profile-form" noValidate>
           <fieldset className="profile__fieldset">
             <label className="profile__label" htmlFor="user-nаme">
               Имя
               <input
-                // value="Виталий"
+                value={values.name || ''}
                 type="text"
-                id="user-name"
-                name="user-name"
+                id="name"
+                name="name"
                 className={`profile__input ${isRedact ? 'profile__input_active' : ''}`}
                 placeholder="Имя"
                 minLength="2"
+                maxLength="30"
+                onChange={handleChange}
+                required
               />
             </label>
-            <span className="profile__error"> </span>
+            <span className="profile__error">{errors.name}</span>
             <label className="profile__label" htmlFor="user-email">
               E-mail
               <input
-                // value="pochta@yandex.ru"
+                value={values.email || ''}
                 type="email"
-                id="user-email"
-                name="user-email"
+                id="email"
+                name="email"
                 className={`profile__input ${isRedact ? 'profile__input_active' : ''}`}
                 placeholder="E-mail"
+                onChange={handleChange}
+                required
               />
             </label>
-            <span className="profile__error"> </span>
+            <span className="profile__error">{errors.email}</span>
           </fieldset>
           {isRedact && (
             <>
               <span className="profile__error profile__error_type_submit">При обновлении профиля произошла ошибка.</span>
-              <button type="submit" className="profile__submit" onClick={handleSubmit}>Сохранить</button>
+              <button type="submit" className={`profile__submit ${isSubmitDisable ? 'profile__submit_disable' : ''}`} onClick={handleSubmit}>Сохранить</button>
             </>
           )}
         </form>
         {!isRedact && (
           <>
             <button type="button" className="profile__button" onClick={handleRedactClick}>Редактировать</button>
-            <button type="button" onClick={handleLogout} className="profile__button profile__button_color_red">Выйти из аккаунта</button>
+            <button type="button" onClick={onSignOut} className="profile__button profile__button_color_red">Выйти из аккаунта</button>
           </>
         )}
       </section>

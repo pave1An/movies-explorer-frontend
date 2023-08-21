@@ -3,7 +3,7 @@ import useFormWithValidation from '../../hooks/useFormWithValidation';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 
-function Register({ onRegister }) {
+function Register({ onRegister, errorMessage }) {
   const {
     values, errors, isFormValid, handleChange,
   } = useFormWithValidation();
@@ -13,6 +13,7 @@ function Register({ onRegister }) {
     const { name, email, password } = values;
     onRegister({ name, email, password });
   }
+
   return (
     <main className="register-content">
       <Form
@@ -24,6 +25,7 @@ function Register({ onRegister }) {
         question="Уже зарегистрированы?"
         link="/signin"
         linkText="Войти"
+        errorMessage={errorMessage}
       >
         <fieldset className="form__fieldset">
           <Input

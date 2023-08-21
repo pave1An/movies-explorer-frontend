@@ -1,48 +1,53 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { isEmail } from 'validator';
-import { nameRegExp } from '../utils/constants';
+import { NAME_REGEXP } from '../utils/constants';
 
 function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const [isFormValid, setIsValid] = useState(false);
+  const [isNameValid, setIsNameValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isAllFieldsValid, setIsAllFieldsValid] = useState(false);
+
+  function setErrorText(boolean, inputName, errorText) {
+    const errorMessage = boolean ? '' : errorText;
+    setErrors((previousErrors) => ({ ...previousErrors, [inputName]: errorMessage }));
+  }
 
   function handleChange(e) {
     const {
       name, value, validationMessage,
     } = e.target;
+
     setErrors((previousErrors) => ({ ...previousErrors, [name]: validationMessage || '' }));
-    setValues((previousValues) => ({ ...previousValues, [name]: value }));
-    setTimeout(() => console.log(errors.name, 1), 3000);
+    setValues((previousValues) => ({ ...previousValues, [name]: value || '' }));
 
-    if (
-      name === 'email'
-      && !isEmail(value)
-      && errors.email === ''
-    ) {
-      setErrors((previousErrors) => ({ ...previousErrors, email: 'Некорректный email' }));
+    if (name === 'email' && !validationMessage) {
+      setIsEmailValid(isEmail(value));
+      setErrorText(isEmail(value), 'email', 'Пожалуйста, введите корректный E-mail');
     }
 
-    if (
-      name === 'name'
-      && !nameRegExp.test(value)
-      && errors.name === ''
-    ) {
-      setErrors((previousErrors) => ({ ...previousErrors, name: 'Некорректное имя' }));
+    if (name === 'name' && !validationMessage) {
+      setIsNameValid(NAME_REGEXP.test(value));
+      setErrorText(NAME_REGEXP.test(value), 'name', 'Пожалуйста, введите корректное имя (разрешены буквы русского и латинского алфавита, дефис, пробел)');
     }
 
-    setIsValid(e.target.closest('form').checkValidity() && isEmail(value));
-    console.log(errors.name);
+    setIsFormValid(e.target.closest('form').checkValidity());
   }
 
-  const resetForm = useCallback(() => {
-    setValues({});
-    setErrors({});
-    setIsValid(false);
-  }, [setValues, setErrors, setIsValid]);
+  const resetForm = useCallback((newValues = {}, newErrors = {}) => {
+    setValues(newValues);
+    setErrors(newErrors);
+    setIsFormValid(false);
+  }, [setValues, setErrors, setIsFormValid]);
+
+  useEffect(() => {
+    setIsAllFieldsValid(isFormValid && isEmailValid && isNameValid);
+  }, [isFormValid, isEmailValid, isNameValid]);
 
   return {
-    values, errors, isFormValid, handleChange, resetForm, setValues,
+    values, errors, isFormValid, isAllFieldsValid, handleChange, resetForm, setValues,
   };
 }
 

@@ -37,10 +37,10 @@ function useCardListRender() {
     setCardsForRender(cards.slice(0, cardsLimits.amount));
   }, [cardsLimits.amount]);
 
-  function handleAddCardsClick(cards) {
+  function handleAddCards(cards) {
     setCardsForRender(cards.slice(0, cardsForRender.length + cardsLimits.extra));
   }
-  return { handleRenderedCards, handleAddCardsClick, cardsForRender };
+  return { handleRenderedCards, handleAddCards, cardsForRender };
 }
 
 export default useCardListRender;

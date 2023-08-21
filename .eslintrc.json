@@ -30,6 +30,7 @@
       "array-callback-return": ["error", { "checkForEach": true }],
       "no-unused-expressions": ["error", { "allowShortCircuit": true }],
       "no-console": ["error", { "allow": ["warn", "error", "log"] }],
-      "react/jsx-no-bind": ["error", {"allowFunctions": true, "allowArrowFunctions": true, "allowBind": true}]
+      "react/jsx-no-bind": ["error", {"allowFunctions": true, "allowArrowFunctions": true, "allowBind": true}],
+      "react/jsx-props-no-spreading": ["error", {"exceptions": ["Component"]}]
     }
 }

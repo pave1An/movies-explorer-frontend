@@ -2,11 +2,11 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
 function SearchForm({
-  handleCheckboxTurn, onChangeRequest, request, onSearch, isShortMovie,
+  handleCheckboxTurn, onChangeRequest, requestText, onSearchMovies, isShortMovies,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
-    onSearch();
+    onSearchMovies();
   }
   return (
     <section className="search-form">
@@ -14,7 +14,7 @@ function SearchForm({
         <div className="search-form__cover">
           <input
             className="search-form__input"
-            value={request}
+            value={requestText || ''}
             placeholder="Фильм"
             name="search-input"
             type="text"
@@ -30,7 +30,7 @@ function SearchForm({
         </div>
         <FilterCheckbox
           onCheckboxTurn={handleCheckboxTurn}
-          isShortMovie={isShortMovie}
+          isShortMovies={isShortMovies}
         />
       </form>
     </section>

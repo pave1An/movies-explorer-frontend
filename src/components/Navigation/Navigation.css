@@ -33,6 +33,10 @@
   transition: all .1s linear;
 }
 
+.navigation__link_theme_dark {
+  color: white;
+}
+
 .navigation__link:hover {
   opacity: .7;
 }
