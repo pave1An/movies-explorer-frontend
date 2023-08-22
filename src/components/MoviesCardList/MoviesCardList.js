@@ -10,10 +10,12 @@ function MoviesCardList({
   handleCheckIsMovieLiked,
   onAddCardsButton,
   isAddButtonEnable,
+  messageText,
+  errorText,
 }) {
   return (
     <section className="movies-grid">
-      <p className="movies-grid__text">Здесь пока ничего нет...</p>
+      <p className={`movies-grid__text ${(messageText || errorText) ? 'movies-grid__text_type_active' : ''}`}>{messageText || errorText}</p>
       {isLoading
         ? (<Preloader />)
         : (

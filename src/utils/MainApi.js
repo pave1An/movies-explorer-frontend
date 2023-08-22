@@ -10,7 +10,7 @@ class MoviesApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(new Error(`Ошибка: ${res.status}`));
+    return Promise.reject((new Error(`Ошибка: ${res.status}`)));
   }
 
   _request(endpoint, options) {
@@ -110,7 +110,7 @@ class MoviesApi {
 }
 
 const mainApi = new MoviesApi({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.moovies-explorer.nomoredomains.xyz',
   headers: {
     'Content-Type': 'application/json',
   },

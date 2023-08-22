@@ -18,6 +18,8 @@ function Movies({
   handleDeleteMovie,
   handleCheckIsMovieLiked,
   recoverSearchFromLocalstorage,
+  messageText,
+  errorText,
 }) {
   const { pathname } = useLocation();
   const { width } = useWindowResize();
@@ -54,6 +56,8 @@ function Movies({
         handleCheckIsMovieLiked={handleCheckIsMovieLiked}
         onAddCardsButton={handleAddCardsButton}
         isAddButtonEnable={isAddButtonEnable}
+        messageText={messageText}
+        errorText={errorText}
       />
     </main>
   );

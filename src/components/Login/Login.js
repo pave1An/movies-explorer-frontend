@@ -3,7 +3,7 @@ import Form from '../Form/Form';
 import Input from '../Input/Input';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 
-function Login({ onLogin, errorMessage }) {
+function Login({ onLogin, errorText }) {
   const {
     values, errors, isFormValid, handleChange,
   } = useFormWithValidation();
@@ -25,7 +25,7 @@ function Login({ onLogin, errorMessage }) {
         link="/signup"
         linkText="Регистрация"
         onSubmit={handleSubmit}
-        errorMessage={errorMessage}
+        errorText={errorText}
       >
         <fieldset className="form__fieldset">
           <Input
@@ -36,6 +36,7 @@ function Login({ onLogin, errorMessage }) {
             type="email"
             required="required"
             labelText="E-mail"
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
           />
           <Input
             values={values}

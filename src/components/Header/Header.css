@@ -1,6 +1,6 @@
 .header {
   z-index: 1;
-  position: relative;
+  position: sticky;
   top: 0;
   box-sizing: border-box;
   padding: 18px 70px;

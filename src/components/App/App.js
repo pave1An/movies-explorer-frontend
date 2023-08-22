@@ -19,7 +19,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { SHORT_MOVIE_DURATION } from '../../utils/constants';
-import useErrorsWithMessges from '../../utils/handleMessages';
+import useErrorsMessages from '../../hooks/useErrorsWithMessages';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,7 +34,9 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { handleError, errorMessage, deleteMessage } = useErrorsWithMessges();
+  const {
+    handleError, handleMessage, errorText, messageText, deleteMessages,
+  } = useErrorsMessages();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -59,7 +61,7 @@ function App() {
             }
           }
         })
-        .catch(console.error);
+        .catch((err) => handleError(err, 'token'));
     }
   }, []);
 
@@ -71,27 +73,31 @@ function App() {
           setIsLoggedIn(true);
           navigate('/movies', { replace: true });
           setCurrentUser(res);
-          deleteMessage();
+          deleteMessages();
         }
       })
-      .catch((err) => handleError('user', err));
+      .catch((err) => handleError(err, 'login'));
   }
 
   function handleRegister({ email, password, name }) {
     mainApi.register({ email, password, name })
       .then(() => {
         handleLogin({ email, password });
+        deleteMessages();
       })
-      .catch((err) => {
-        handleError('user', err);
-      });
+      .catch((err) => handleError(err, 'register'));
   }
 
-  function handlePatchUserInfo(userData) {
+  function handlePatchUserInfo(userData, handleSubmitState) {
     mainApi
       .patchUserInfo(userData)
-      .then(({ name, email }) => setCurrentUser({ name, email }))
-      .catch(console.error);
+      .then(({ name, email }) => {
+        setCurrentUser({ name, email });
+        handleSubmitState();
+        deleteMessages();
+        handleMessage('user', 'data-saved');
+      })
+      .catch((err) => handleError(err));
   }
 
   function deleteDataFromLocalstorage() {
@@ -116,8 +122,9 @@ function App() {
         resetSearchData();
         deleteDataFromLocalstorage();
         navigate('/', { replace: true });
+        deleteMessages();
       })
-      .catch(console.error);
+      .catch((err) => handleError(err));
   }
 
   function handleChangeRequestText(e) {
@@ -143,13 +150,23 @@ function App() {
     }
   }
 
+  function showMessageIfEmptyResult(movies) {
+    if (movies.length === 0) {
+      handleMessage('movies', 'empty-result');
+    }
+    if (movies.length !== 0) {
+      deleteMessages();
+    }
+  }
+
   function handleMoviesForRender(movies, text, isShort) {
     const filterByTextResult = filterMoviesByText(movies, text);
-    setMoviesFilteredByText(filterByTextResult);
     const filterByShortResult = filterMoviesByShort(filterByTextResult, isShort);
-    setMoviesForRender(filterByShortResult);
 
+    setMoviesFilteredByText(filterByTextResult);
+    setMoviesForRender(filterByShortResult);
     saveRequestWithMoviesToStorage(text, filterByTextResult);
+    showMessageIfEmptyResult(filterByShortResult);
   }
 
   function saveCheckBoxStateToStorage(state) {
@@ -160,8 +177,10 @@ function App() {
     setIsLoading(true);
     setIsShortMovies((checkBoxState) => {
       const newCheckboxState = !checkBoxState;
+
       if (moviesFilteredByText.length > 0) {
         const filterByShortResult = filterMoviesByShort(moviesFilteredByText, newCheckboxState);
+        showMessageIfEmptyResult(filterByShortResult);
         setMoviesForRender(filterByShortResult);
         saveCheckBoxStateToStorage(newCheckboxState);
         return newCheckboxState;
@@ -172,6 +191,11 @@ function App() {
   }
 
   function handleSearchForMoviesPage() {
+    if (requestText === '') {
+      handleMessage('movies', 'empty-request');
+      return;
+    }
+    deleteMessages();
     setIsLoading(true);
     if (allMovies.length === 0) {
       moviesApi
@@ -180,7 +204,7 @@ function App() {
           setAllMovies(movies);
           handleMoviesForRender(movies, requestText, isShortMovies);
         })
-        .catch(console.error)
+        .catch((err) => handleError(err, 'movies'))
         .finally(() => setIsLoading(false));
     } else {
       handleMoviesForRender(allMovies, requestText, isShortMovies);
@@ -197,7 +221,7 @@ function App() {
   function handleSaveMovie(likedMovie) {
     mainApi.postMovie(likedMovie)
       .then((movie) => setSavedMovies([movie, ...savedMovies]))
-      .catch(console.error);
+      .catch((err) => (handleError(err, 'movies')));
   }
 
   function deletMovie(movieForDelete) {
@@ -225,7 +249,7 @@ function App() {
       .then(() => {
         deletMovie(movieForDelete);
       })
-      .catch(console.error);
+      .catch((err) => handleError(err, 'movies'));
   }
 
   function handleCheckIsMovieLiked(likedMovie) {
@@ -235,8 +259,13 @@ function App() {
   function recoverSearchFromLocalstorage() {
     setIsLoading(true);
     const savedRequest = localStorage.getItem('requestText') || '';
-    const savedIsShort = JSON.parse(localStorage.getItem('is-short-movies')) || false;
+    if (!savedRequest) {
+      handleMessage('movies', 'empty-here');
+      setIsLoading(false);
+      return;
+    }
     const savedMoviesFilteredByText = JSON.parse(localStorage.getItem('movies-filtered-by-text')) || [];
+    const savedIsShort = JSON.parse(localStorage.getItem('is-short-movies')) || false;
     setRequestText(savedRequest);
     setIsShortMovies(savedIsShort);
     setMoviesFilteredByText(savedMoviesFilteredByText);
@@ -248,6 +277,10 @@ function App() {
     checkToken();
   }, [checkToken]);
 
+  useEffect(() => {
+    deleteMessages();
+  }, [pathname]);
+
   useLayoutEffect(() => {
     setIsLoading(true);
     if (isLoggedIn) {
@@ -255,9 +288,13 @@ function App() {
         .getSavedMovies()
         .then((movies) => {
           setSavedMovies(movies);
-          if (pathname === '/saved-movies') handleMoviesForRender(movies, '', false);
+          if (pathname === '/saved-movies') {
+            if (movies.legth === 0) {
+              handleMessage('movies', 'empty-here');
+            } else handleMoviesForRender(movies, '', false);
+          }
         })
-        .catch(console.error)
+        .catch((err) => handleError(err, 'movies'))
         .finally(() => setIsLoading(false));
     }
   }, [isLoggedIn]);
@@ -268,8 +305,8 @@ function App() {
         {isLocationForHeader && <Header isRootPath={isRootPath} isLoggedIn={isLoggedIn} /> }
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/signup" element={<Register onRegister={handleRegister} errorMessage={errorMessage} />} />
-          <Route path="/signin" element={<Login onLogin={handleLogin} errorMessage={errorMessage} />} />
+          <Route path="/signup" element={<Register onRegister={handleRegister} errorText={errorText} />} />
+          <Route path="/signin" element={<Login onLogin={handleLogin} errorText={errorText} />} />
           <Route
             path="/movies"
             element={(
@@ -287,6 +324,8 @@ function App() {
                 handleChangeRequestText={handleChangeRequestText}
                 handleCheckIsMovieLiked={handleCheckIsMovieLiked}
                 recoverSearchFromLocalstorage={recoverSearchFromLocalstorage}
+                errorText={errorText}
+                messageText={messageText}
               />
             )}
           />
@@ -309,6 +348,9 @@ function App() {
                 resetSearchData={resetSearchData}
                 handleMoviesForRender={handleMoviesForRender}
                 setIsLoading={setIsLoading}
+                errorText={errorText}
+                messageText={messageText}
+                handleMessage={handleMessage}
               />
             )}
           />
@@ -320,6 +362,8 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 handlePatchUserInfo={handlePatchUserInfo}
                 onSignOut={handleSignOut}
+                errorText={errorText}
+                messageText={messageText}
               />
             )}
           />

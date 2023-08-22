@@ -2,7 +2,16 @@ import './Form.css';
 import { Link } from 'react-router-dom';
 
 function Form({
-  title, buttonText, isFormValid, children, question, link, linkText, name, onSubmit, errorMessage,
+  title,
+  buttonText,
+  isFormValid,
+  children,
+  question,
+  link,
+  linkText,
+  name,
+  onSubmit,
+  errorText,
 }) {
   return (
     <section className="form">
@@ -16,7 +25,7 @@ function Form({
         onSubmit={onSubmit}
       >
         {children}
-        <p>{errorMessage}</p>
+        <p className="form__message">{errorText}</p>
         <button
           type="submit"
           className={`form__button ${!isFormValid ? 'form__button_disablded' : ''}`}
