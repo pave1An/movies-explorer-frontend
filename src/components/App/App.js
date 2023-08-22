@@ -219,7 +219,8 @@ function App() {
   }
 
   function handleSaveMovie(likedMovie) {
-    mainApi.postMovie(likedMovie)
+    mainApi
+      .postMovie(likedMovie)
       .then((movie) => setSavedMovies([movie, ...savedMovies]))
       .catch((err) => (handleError(err, 'movies')));
   }

@@ -6,20 +6,20 @@ function useErrorsMessages() {
   const [messageText, setMessageText] = useState('');
 
   function handleError(err, type) {
-    const errCode = err.message.match(/\d+/);
-    if (!err.message || !errCode) {
-      setErrorText(ERROR_TEXTS.default.default);
-      return;
-    }
-
-    if (!ERROR_TEXTS[errCode[0]][type]) {
-      setErrorText(ERROR_TEXTS[errCode[0]].default);
-      console.log(err.message);
-      return;
-    }
-
-    setErrorText(ERROR_TEXTS[errCode[0]][type]);
     console.log(err.message);
+    const { code } = err;
+    const obj = ERROR_TEXTS;
+
+    if (obj[code]) {
+      if (obj[code] && obj[code][type]) {
+        setErrorText(obj[code][type]);
+        return;
+      }
+      setErrorText(obj[code].default);
+      return;
+    }
+
+    setMessageText(obj.default.default);
   }
 
   function handleMessage(type, message) {

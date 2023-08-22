@@ -31,7 +31,7 @@ function SavedMovies({
     resetSearchData();
     handleMoviesForRender(savedMovies, '', false);
     setIsLoading(false);
-  }, [handleMessageEmptyHere]);
+  }, []);
 
   useEffect(() => {
     handleMessageEmptyHere();

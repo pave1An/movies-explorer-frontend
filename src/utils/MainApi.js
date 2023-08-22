@@ -1,3 +1,4 @@
+import CustomError from './CustomError';
 import { MOVIES_BASE_URL } from './constants';
 
 class MoviesApi {
@@ -10,7 +11,7 @@ class MoviesApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject((new Error(`Ошибка: ${res.status}`)));
+    return Promise.reject(new CustomError(res.statusText, res.status));
   }
 
   _request(endpoint, options) {
@@ -110,10 +111,11 @@ class MoviesApi {
 }
 
 const mainApi = new MoviesApi({
-  baseUrl: 'https://api.moovies-explorer.nomoredomains.xyz',
+  baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export default mainApi;
+// 'https://api.moovies-explorer.nomoredomains.xyz',
