@@ -118,4 +118,3 @@ const mainApi = new MoviesApi({
 });
 
 export default mainApi;
-
