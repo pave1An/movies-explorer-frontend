@@ -1,3 +1,10 @@
+.profile-content {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .profile {
   box-sizing: border-box;
   padding: 74px 70px 70px;
@@ -84,12 +91,17 @@
   font-weight: 400;
   line-height: normal;
   align-self: flex-end;
-  width: 100%
+  width: 80%;
 }
 
 .profile__error_type_submit {
   text-align: center;
   padding: 20px 0;
+  width: 100%;
+}
+
+.profile__error_type_message {
+  color: #3456F3;
 }
 
 .profile__submit {

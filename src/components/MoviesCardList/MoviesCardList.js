@@ -1,20 +1,39 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
-function MoviesCardList({ cards }) {
+function MoviesCardList({
+  movies,
+  isLoading,
+  handleSaveMovie,
+  handleDeleteMovie,
+  handleCheckIsMovieLiked,
+  onAddCardsButton,
+  isAddButtonEnable,
+  messageText,
+  errorText,
+}) {
   return (
     <section className="movies-grid">
-      <ul className="movies-grid__list">
-        {cards.map((card) => (
-          <MoviesCard
-            key={card.id}
-            imageLink={card.image.formats.thumbnail.url}
-            title={card.nameRU}
-            duration={card.duration}
-          />
-        ))}
-      </ul>
-      <button className="movies-grid__button" type="button">Ещё</button>
+      <p className={`movies-grid__text ${(messageText || errorText) ? 'movies-grid__text_type_active' : ''}`}>{messageText || errorText}</p>
+      {isLoading
+        ? (<Preloader />)
+        : (
+          <ul className="movies-grid__list">
+            {movies.map((movie) => (
+              <MoviesCard
+                key={movie?.id || movie.movieId}
+                movie={movie}
+                isLike={handleCheckIsMovieLiked(movie)}
+                onSaveMovie={handleSaveMovie}
+                onDeleteMovie={handleDeleteMovie}
+                onChekIsMovieLiked={handleCheckIsMovieLiked}
+              />
+            ))}
+          </ul>
+        )}
+      {isAddButtonEnable
+      && <button className="movies-grid__button" onClick={onAddCardsButton} type="button">Ещё</button>}
     </section>
   );
 }

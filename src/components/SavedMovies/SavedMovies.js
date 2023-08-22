@@ -1,12 +1,58 @@
+import { useCallback, useEffect } from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
-import { savedMovies } from '../../utils/constants';
 
-function SavedMovies() {
+function SavedMovies({
+  requestText,
+  savedMovies,
+  moviesForRender,
+  isLoading,
+  handleDeleteMovie,
+  handleCheckIsMovieLiked,
+  handleSearchForSavedMoviesPage,
+  handleCheckboxTurn,
+  isShortMovies,
+  handleChangeRequestText,
+  handleMoviesForRender,
+  resetSearchData,
+  setIsLoading,
+  messageText,
+  errorText,
+  handleMessage,
+}) {
+  const handleMessageEmptyHere = useCallback(() => {
+    if (savedMovies.length === 0) {
+      handleMessage('movies', 'empty-here');
+    }
+  }, [savedMovies]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    resetSearchData();
+    handleMoviesForRender(savedMovies, '', false);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    handleMessageEmptyHere();
+  }, [handleMessageEmptyHere]);
   return (
     <main className="movies">
-      <SearchForm />
-      <MoviesCardList cards={savedMovies} />
+      <SearchForm
+        requestText={requestText}
+        onSearchMovies={handleSearchForSavedMoviesPage}
+        handleCheckboxTurn={handleCheckboxTurn}
+        isShortMovies={isShortMovies}
+        onChangeRequest={handleChangeRequestText}
+      />
+      <MoviesCardList
+        movies={moviesForRender}
+        isLoading={isLoading}
+        handleDeleteMovie={handleDeleteMovie}
+        handleCheckIsMovieLiked={handleCheckIsMovieLiked}
+        messageText={messageText}
+        errorText={errorText}
+      />
     </main>
   );
 }

@@ -18,6 +18,7 @@
   padding: 0;
   margin: 0;
   align-items: center;
+  z-index: 1;
 }
 
 .navigation__link {
@@ -30,6 +31,10 @@
   line-height: 18px;
   cursor: pointer;
   transition: all .1s linear;
+}
+
+.navigation__link_theme_dark {
+  color: white;
 }
 
 .navigation__link:hover {
